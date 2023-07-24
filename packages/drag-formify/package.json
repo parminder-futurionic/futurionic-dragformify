@@ -1,7 +1,7 @@
 {
   "name": "@futurionic/drag-formify",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.2-alpha.0",
   "type": "module",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
