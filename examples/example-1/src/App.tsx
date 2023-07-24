@@ -2,14 +2,14 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import Button from '@futurionicmanu/drag-formify/packages/drag-formify'
+import { Button } from '@futurionicmanu/drag-formify'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-     
+     <Button />
     </>
   )
 }
