@@ -1,0 +1,21 @@
+{
+  "name": "@futurionicmanu/drag-formify",
+  "version": "0.0.2",
+  "description": "",
+  "main": "index.js",
+    "license": "UNLICENSED",
+  
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Parminder Singh",
+  "dependencies": {},
+  "devDependencies": {
+    "lerna": "^7.1.4"
+  },
+  "workspaces":["packages/*"],
+  "publishConfig": {
+    "access": "public"
+  }
+}
