@@ -1,7 +1,7 @@
 {
   "name": "@futurionic/drag-formify",
   "private": true,
-  "version": "0.0.2-alpha.0",
+  "version": "0.0.2",
   "type": "module",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
@@ -16,10 +16,10 @@
   "files": [
     "/dist"
   ],
+  "license": "UNLICENSED",
   "publishConfig": {
     "access": "public"
   },
-  "license": "UNLICENSED",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
