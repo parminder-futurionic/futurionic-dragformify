@@ -1,6 +1,4 @@
-# @futurionicmanu/react-dnd-kit
-
-# React Drag and Drop Library
+# @futurionic/react-dnd-kit
 
 ![React version](https://img.shields.io/badge/React-%5E18.2.0-blue)
 ![TypeScript version](https://img.shields.io/badge/TypeScript-%5E5.1.6-blue)
@@ -22,6 +20,8 @@ Using yarn:
 ```bash
 yarn add@futurionicmanu/react-dnd-kit
 ```
+## Keywords
+Drag and Drop, React, Frontend, Library, JavaScript , TypeScript , Tailwind
 
 ## Features
 
@@ -69,7 +69,7 @@ Let's create a simple example to demonstrate the use of the `useDraggable` hook:
 
 ```jsx
 import React from 'react';
-import { useDraggable } from '@futurionicmanu/react-dnd-hooks';
+import { useDraggable } from '@futurionic/react-dnd-hooks';
 
 const DraggableItem = ({ name }) => {
   const { isDragging } = useDraggable({
@@ -117,7 +117,7 @@ Let's create a simple example to demonstrate the use of the `useDroppable` hook:
 
 ```jsx
 import React from 'react';
-import { useDroppable } from '@futurionicmanu/react-dnd-kit';
+import { useDroppable } from '@futurionic/react-dnd-kit';
 
 const DroppableZone = () => {
   const { isDragOver, handleDrop } = useDroppable({
@@ -175,7 +175,7 @@ Let's create a reusable DraggableComponent to demonstrate its usage:
 
 ```jsx
 import React from 'react';
-import DraggableComponent from '@futurionicmanu/react-dnd-kit';
+import DraggableComponent from '@futurionic/react-dnd-kit';
 
 const DraggableItem = ({ name }) => {
   return (
@@ -260,7 +260,7 @@ Let's create an example using the `DragDrop` component to demonstrate its usage:
 
 ```jsx
 import React from 'react';
-import DragDrop from '@futurionicmanu/react-dnd-kit';
+import DragDrop from '@futurionic/react-dnd-kit';
 
 const MyDragDropComponent = () => {
   const handleDrop = (data, containerId) => {
@@ -302,7 +302,7 @@ In this example, we use the `DragDrop` component to create a drag and drop area 
 
 ### Future Development
 
-We are committed to improving react-dnd-kit and adding new features to enhance its functionality. Here are some of the planned features, improvements, and testing initiatives for future releases:
+We are committed to improving @futurionic/react-dnd-kit and adding new features to enhance its functionality. Here are some of the planned features, improvements, and testing initiatives for future releases:
 
 - **Multi-Drag Support:** Allow users to drag multiple items simultaneously.
 - **Nested Drag and Drop:** Enable drag and drop interactions within nested components.
@@ -336,10 +336,9 @@ We are committed to improving react-dnd-kit and adding new features to enhance i
 - Conduct cross-browser testing to ensure compatibility across different browsers and versions.
 - Test the library in different screen sizes and resolutions to ensure responsiveness.
 
-Please note that the list above is not exhaustive, and we are open to community feedback and contributions. If you have any feature requests, suggestions, or ideas for additional corner cases and testing scenarios, feel free to create an issue or a pull request. We value your input in making react-dnd-kit a reliable and feature-rich library!
+Please note that the list above is not exhaustive, and we are open to community feedback and contributions. If you have any feature requests, suggestions, or ideas for additional corner cases and testing scenarios, feel free to create an issue or a pull request. We value your input in making @futurionic/react-dnd-kit a reliable and feature-rich library!
 
 
 ## License
 
 UNLICENSED
-```
