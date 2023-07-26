@@ -1,2 +1,3 @@
 storybook-static
-stories
+node_modules
+dist
