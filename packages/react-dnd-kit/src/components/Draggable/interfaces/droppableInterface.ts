@@ -1,5 +1,11 @@
+
+type dropPosition = {
+  x: number;
+  y: number;
+}
+
 export interface UseDroppableOptions {
-  onDrop?: (data: any, targetContainerId: string) => void;
+  onDrop?: (data: any, targetContainerId: string,{x,y} : dropPosition) => void;
   onDragEnter?: () => void;
   onDragLeave?: () => void;
   onDragOver?: () => void;
@@ -8,9 +14,10 @@ export interface UseDroppableOptions {
   disableDropping?: boolean; // Disable dropping items into the container
 }
 
+
 export interface DroppableProps {
   containerId: string;
-  onDrop?: (data: any, targetContainerId: string) => void;
+  onDrop?: (data: any, targetContainerId: string ,{x,y} : dropPosition) => void;
   acceptItemTypes?: string[]; // Array of accepted item types
   defaultTailwindClasses?: string; // Default Tailwind CSS classes for the droppable container
   customTailwindClasses?: string; // Custom Tailwind CSS classes for overriding or adding styles

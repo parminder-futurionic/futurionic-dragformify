@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { UseDroppableOptions } from "../interfaces";
 
 const useDroppable = (options: UseDroppableOptions = {}) => {
@@ -11,16 +11,24 @@ const useDroppable = (options: UseDroppableOptions = {}) => {
     acceptItemTypes,
     disableDropping,
   } = options;
+  const droppableRef = React.useRef<HTMLDivElement>(null);
   const [isDragOver, setIsDragOver] = useState(false);
   const [isInvalidDrop, setIsInvalidDrop] = useState(false);
-
+ const [draggedElementPosition, setDraggedElementPosition] = useState({
+    x: 0,
+    y: 0,
+  });
   const handleDrop = useCallback(
-    (data: any, targetContainerId: string) => {
+    (e:any,data: any, targetContainerId: string) => {
       console.log("handle");
       if (disableDropping) {
         setIsInvalidDrop(true);
-      } else if (onDrop && acceptItemTypes && acceptItemTypes.includes(data)) {
-        onDrop(data, targetContainerId);
+      } else if (onDrop && acceptItemTypes && acceptItemTypes.includes(data) && droppableRef.current) {
+        const droppableRect = droppableRef.current.getBoundingClientRect();
+        const dropX = e.clientX - droppableRect.left;
+        const dropY = e.clientY - droppableRect.top;
+
+        onDrop(data, targetContainerId , {x: dropX, y: dropY});
       } else {
         // Additional check for invalid drops
         setIsInvalidDrop(true);
@@ -36,6 +44,7 @@ const useDroppable = (options: UseDroppableOptions = {}) => {
       if (onDragOver) {
         onDragOver();
       }
+       setDraggedElementPosition({ x: e.clientX, y: e.clientY });
     };
 
     const handleDragEnter = () => {
@@ -79,6 +88,9 @@ const useDroppable = (options: UseDroppableOptions = {}) => {
     isInvalidDrop,
     handleDrop,
     setIsInvalidDrop,
+    setDraggedElementPosition,
+    draggedElementPosition,
+    droppableRef
   };
 };
 

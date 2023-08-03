@@ -11,8 +11,19 @@ const DroppableComponent: React.FC<DroppableProps> = ({
   style = {},
   children,
 }) => {
-  const droppableRef = useRef<HTMLDivElement>(null);
-  const { isDragOver,isInvalidDrop,setIsInvalidDrop } = useDroppable({
+  const [showDropPosition, setShowDropPosition] = React.useState(false);
+  const [dropPosition, setDropPosition] = React.useState<{
+    x: number;
+    y: number;
+  } | null>(null);
+  const {
+    isDragOver,
+    isInvalidDrop,
+    setIsInvalidDrop,
+    droppableRef,
+    draggedElementPosition,
+    setDraggedElementPosition,
+  } = useDroppable({
     onDrop,
     acceptItemTypes,
   });
@@ -27,6 +38,37 @@ const DroppableComponent: React.FC<DroppableProps> = ({
     .join(" ")
     .trim();
 
+    const handleDragOver = (e : React.DragEvent<HTMLDivElement>) => {
+      e.preventDefault();
+      setShowDropPosition(true);
+      const droppableRect = droppableRef.current!.getBoundingClientRect();
+      const containerTop = droppableRect.top;
+      const containerBottom = droppableRect.bottom;
+      const containerLeft = droppableRect.left;
+      const containerRight = droppableRect.right;
+    
+      let dropX = e.clientX;
+      let dropY = e.clientY;
+    
+      // Ensure the drop position is inside the container horizontally
+      if (dropX < containerLeft) {
+        dropX = containerLeft;
+      } else if (dropX > containerRight) {
+        dropX = containerRight;
+      }
+    
+      // Ensure the drop position is inside the container vertically
+      if (dropY < containerTop) {
+        dropY = containerTop;
+      } else if (dropY > containerBottom) {
+        dropY = containerBottom;
+      }
+    
+      dropX -= containerLeft;
+      dropY -= containerTop;
+      setDropPosition({ x: dropX, y: dropY });
+    };
+
   return (
     <div
       ref={droppableRef}
@@ -35,7 +77,7 @@ const DroppableComponent: React.FC<DroppableProps> = ({
       data-container-id={containerId}
       onDrop={(e) => {
         e.preventDefault();
-        setIsInvalidDrop(false)
+        setIsInvalidDrop(false);
         const data = e.dataTransfer.getData("application/json");
         if (data) {
           try {
@@ -45,22 +87,48 @@ const DroppableComponent: React.FC<DroppableProps> = ({
                 acceptItemTypes.length === 0 ||
                 acceptItemTypes.includes(parsedData.type)) &&
               onDrop &&
-              containerId
+              containerId &&
+              droppableRef.current
             ) {
-              onDrop(parsedData, containerId);
+              const droppableRect =
+                droppableRef.current.getBoundingClientRect();
+              const dropX = e.clientX - droppableRect.left;
+              const dropY = e.clientY - droppableRect.top;
+
+              onDrop(parsedData, containerId, { x: dropX, y: dropY });
             } else {
-              setIsInvalidDrop(true)
+              setIsInvalidDrop(true);
               console.log(
                 "Drop not allowed for this item in the target container."
               );
             }
+            setShowDropPosition(false);
+            setDropPosition(null);
           } catch (error) {
             console.error("Error parsing dropped data:", error);
           }
         }
       }}
+      onDragOver={handleDragOver}
+      onDragLeave={() => {
+        setShowDropPosition(false);
+        setDropPosition(null);
+      }}
       role="group"
     >
+      {showDropPosition && dropPosition && (
+        <div
+          style={{
+            position: "absolute",
+            left: dropPosition.x,
+            top: dropPosition.y,
+            border: "2px dashed blue",
+            width: "100px",
+            height: "50px",
+            pointerEvents: "none",
+          }}
+        />
+      )}
       {children}
     </div>
   );

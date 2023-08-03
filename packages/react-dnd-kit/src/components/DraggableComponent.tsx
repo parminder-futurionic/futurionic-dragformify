@@ -21,7 +21,7 @@ const DraggableComponent: React.FC<DraggableProps> = ({
   as = "div",
 }) => {
   const draggableRef = useRef<HTMLDivElement>(null);
-  const { isDragging } = useDraggable({
+  const { isDragging ,draggedElementPosition,  setDraggedElementPosition } = useDraggable({
     onDragStart,
     onDragEnd,
     onCustomDragStart,
@@ -39,6 +39,7 @@ const DraggableComponent: React.FC<DraggableProps> = ({
       e.preventDefault();
       return;
     }
+    setDraggedElementPosition({x:e.clientX ,y:e.clientY});
 
     if (customDragData) {
       try {
@@ -80,6 +81,12 @@ const DraggableComponent: React.FC<DraggableProps> = ({
     }
   };
 
+  const handleDrag = (e : React.DragEvent<HTMLDivElement>) => {
+    // Update the position of the dragged element during the drag event
+    setDraggedElementPosition({ x: e.clientX, y: e.clientY });
+  };
+
+
   const draggableClassNames = [
     defaultClassName,
     isDragging ? "opacity-50" : "",
@@ -96,11 +103,13 @@ const DraggableComponent: React.FC<DraggableProps> = ({
       draggable: !disableDragging,
       onDragStart: handleDragStart,
       onDragEnd: handleDragEnd,
+      onDrag: handleDrag,
       className: draggableClassNames,
       role: "option",
       tabIndex: 0,
       "aria-grabbed": isDragging ? "true" : "false",
       "aria-disabled": disableDragging,
+      position: draggedElementPosition
     },
     children
   );

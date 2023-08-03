@@ -16,6 +16,10 @@ const useDraggable = (options: UseDraggableOptions = {}) => {
   } = options;
   const draggableRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [draggedElementPosition, setDraggedElementPosition] = useState({
+    x: 0,
+    y: 0,
+  });
   const isTouchDevice = "ontouchstart" in window;
 
   useEffect(() => {
@@ -41,6 +45,7 @@ const useDraggable = (options: UseDraggableOptions = {}) => {
       if (onCustomDragStart) {
         onCustomDragStart();
       }
+      setDraggedElementPosition({ x: e.clientX, y: e.clientY });
       // Prevent default dragstart behavior after setting the data
       e.preventDefault();
     };
@@ -138,7 +143,12 @@ const useDraggable = (options: UseDraggableOptions = {}) => {
     disableDraggingOnMobile,
   ]);
 
-  return { isDragging ,draggableRef };
+  return {
+    isDragging,
+    draggableRef,
+    draggedElementPosition,
+    setDraggedElementPosition,
+  };
 };
 
 export default useDraggable;

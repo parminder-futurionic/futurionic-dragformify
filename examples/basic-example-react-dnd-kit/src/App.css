@@ -40,3 +40,21 @@
 .read-the-docs {
   color: #888;
 }
+
+
+/* App.css */
+.container {
+  font-family: 'Roboto', sans-serif;
+}
+
+.form-container {
+  max-width: 500px;
+}
+
+.side-panel {
+  max-width: 250px;
+}
+
+pre {
+  font-family: 'Roboto Mono', monospace;
+}
