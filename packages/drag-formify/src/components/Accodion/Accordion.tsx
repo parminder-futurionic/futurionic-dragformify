@@ -6,7 +6,7 @@ interface AccordionProps {
 }
 
 const Accordion: React.FC<AccordionProps> = ({ heading, content }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   const toggleAccordion = () => {
     setIsOpen((prevState) => !prevState);
@@ -14,26 +14,18 @@ const Accordion: React.FC<AccordionProps> = ({ heading, content }) => {
 
   return (
     <div
-      className={`${
-        isOpen
-          ? "rounded-xl bg-indigo-50 dark:bg-indigo-900"
-          : "rounded-md bg-white dark:bg-gray-800"
-      }`}
+      className={`flex flex-col gap-0  
+        bg-white  dark:bg-gray-800
+      `}
     >
-      <h2>
+      <h2 className="w-full">
         <button
           type="button"
-          className={`flex items-center justify-between w-full p-5 font-medium text-left ${
-            isOpen ? "text-indigo-800" : "text-indigo-500"
-          } border border-b-0 border-gray-200 ${
-            isOpen ? "rounded-t-xl" : "rounded-md"
-          } focus:ring-4 ${
-            isOpen ? "focus:ring-indigo-200" : "focus:ring-blue-200"
-          } dark:focus:ring-blue-800 ${
-            isOpen ? "dark:border-indigo-700" : "dark:border-gray-700"
-          } dark:text-gray-400 ${
-            isOpen ? "hover:bg-indigo-100" : "hover:bg-indigo-50"
-          } dark:hover:bg-indigo-900 transition-all`}
+          className={`flex items-center justify-between w-full p-5 
+          font-semibold  bg-base-200 text-left text-gray-500 border border-b-0
+          border-gray-200 
+          focus:ring-4 focus:ring-gray-200
+           dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all`}
           onClick={toggleAccordion}
           aria-expanded={isOpen}
         >
@@ -60,11 +52,7 @@ const Accordion: React.FC<AccordionProps> = ({ heading, content }) => {
       </h2>
       {isOpen && (
         <div
-          className={`p-2 ${
-            isOpen
-              ? "bg-indigo-200 dark:bg-indigo-800"
-              : "bg-white dark:bg-gray-700"
-          } border border-b-0 border-gray-200 dark:border-indigo-700 rounded-b-xl transition-all`}
+          className={`p-1 w-full border border-b-1 border-gray-200 dark:border-gray-700 transition-all`}
         >
           {content}
         </div>

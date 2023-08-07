@@ -11,7 +11,6 @@ const Dropzone: React.FC = () => {
   const { selectedInput, setSelectedInput } = useDraggableInputContext();
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
   const [dropIndex, setDropIndex] = useState<number | null>(null);
-  const [isDraggingFromSidebar, setIsDraggingFromSidebar] = useState(false);
 
   React.useEffect(() => {
     if (selectedInput) {
@@ -48,7 +47,6 @@ const Dropzone: React.FC = () => {
     index: number
   ) => {
     // event.dataTransfer.setData("text/plain", "");
-    setIsDraggingFromSidebar(false);
     console.log("Drag start Index: " + index);
     setDraggedIndex(index);
     setSelectedInput(inputs[index]);
@@ -100,10 +98,15 @@ const Dropzone: React.FC = () => {
       }
       // Calculate the drop index based on the position where the new element is dropped
       const dropElement = event.currentTarget;
-      const { height } = dropElement.getBoundingClientRect();
-      const offsetY = event.clientY - dropElement.getBoundingClientRect().top;
-      const newIndex = offsetY > height / 2 ? inputs.length : 0;
+      const { height , top } = dropElement.getBoundingClientRect();
+      const offsetY = event.clientY - top;
 
+      // Calculate the position relative to the drop zone
+      const relativePosition = offsetY / height;
+    
+      // Calculate the index where the element should be inserted
+      const newIndex = Math.round(relativePosition * inputs.length);
+    
       // Insert the new element at the calculated drop index
       const updatedInputs = [...inputs];
       if (newInput) {
@@ -112,6 +115,7 @@ const Dropzone: React.FC = () => {
       setInputs(updatedInputs);
 
       setSelectedInput(null);
+      setDropIndex(null);
     }
   };
 

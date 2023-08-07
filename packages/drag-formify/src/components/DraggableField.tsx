@@ -8,14 +8,20 @@ import { InputIcon } from "../assets/SvgIcons/InputIcon";
 import { PasswordIcon } from "../assets/SvgIcons/PasswordIcon";
 import { EmailIcon } from "../assets/SvgIcons/EmailIcon";
 
+interface IconProps {
+  size?: string;
+  fill?: string;
+  className?: string;
+}
+
 interface IInputComponentIcon {
-  [key: string]: JSX.Element;
+  [key: string]: React.FC<IconProps>;
 }
 
 const InputComponentIcon: IInputComponentIcon = {
-  textInput: <InputIcon fill="#fff" />,
-  passwordInput: <PasswordIcon fill="#fff" />,
-  emailInput: <EmailIcon fill="#fff" />,
+  textInput: InputIcon,
+  passwordInput: PasswordIcon,
+  emailInput: EmailIcon,
 };
 
 const DraggableField: React.FC<DraggableInputProps> = (props) => {
@@ -27,20 +33,33 @@ const DraggableField: React.FC<DraggableInputProps> = (props) => {
     setSelectedInput(props);
   };
 
+  const IconComponent = InputComponentIcon[`${props.icon}`];
+
+  const [isHovered, setIsHovered] = React.useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
   return (
     <>
       <div
         draggable
         onDrag={handleDragStart}
-        className="relative group flex items-center p-2 transition bg-indigo-50 border border-gray-200 rounded-md cursor-move my-4 shadow-md hover:shadow-lg transform hover:scale-105"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        className="relative group flex flex-col items-center p-2 transition bg-white border border-gray-200  cursor-move shadow-md hover:shadow-lg transform hover:scale-105"
       >
-        <div className="absolute top-0 left-0 right-0 bottom-0 bg-opacity-10 backdrop-blur-lg shadow-md rounded-md"></div>
-        <div className="z-20 relative bg-indigo-500 text-white rounded-full p-1 mr-3 group-hover:bg-indigo-700">
-          {InputComponentIcon[`${props.icon}`]}
+        <div className="z-20 relative bg-white text-black rounded-full p-2 mb-1  group-hover:text-primary">
+          <IconComponent fill={isHovered ? "#8b5cf6" : "#333"}  className="transition-fill duration-300"/>
         </div>
         <div className="z-10 relative">
           <p
-            className={`text-lg font-medium text-gray-800 group-hover:text-indigo-800`}
+            className={`text-xs font-normal text-gray-800 group-hover:text-primary`}
           >
             {props.label}
           </p>

@@ -48,26 +48,32 @@ const App = () => {
     <DraggableInputProvider>
       <div className="flex flex-col md:flex-row">
         {/* Left Sidebar */}
-        
+        <div className="drawer lg:drawer-open h-screen">
+          <input
+            id="formDragLeftSideBar"
+            type="checkbox"
+            className="drawer-toggle"
+          />
+          <div className="drawer-content flex flex-cols flex-col">
+            {/* Page content here */}
+            
+            <Header />
+            
+              {/* Main Content */}
+              <main className="bg-gray-100 p-4 flex-grow min-h-screen">
+                <MainContent />
+              </main>
+            
+          </div>
           <LeftSidebar isOpen={isLeftSidebarOpen} onClose={toggleLeftSidebar} />
-        
-
-        <div className="flex flex-col w-full md:w-3/5">
-          <Header />
-
-          {/* Main Content */}
-          <main className="bg-gray-100 p-4 flex-grow min-h-screen">
-            <MainContent />
-          </main>
         </div>
 
         {/* Right Sidebar */}
-   
-          <RightSidebar
-            isOpen={isRightSidebarOpen}
-            onClose={toggleRightSidebar}
-          />
-        
+
+        <RightSidebar
+          isOpen={isRightSidebarOpen}
+          onClose={toggleRightSidebar}
+        />
       </div>
     </DraggableInputProvider>
   );
