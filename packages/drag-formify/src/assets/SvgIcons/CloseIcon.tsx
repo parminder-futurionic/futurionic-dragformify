@@ -4,7 +4,7 @@ export const CloseIcon = ({ size = "36px", fill = "#333", className = "" }) => (
     width={size}
     height={size}
     fill={fill}
-    enable-background="new 0 0 512 512"
+    enableBackground="new 0 0 512 512"
     viewBox="0 0 512 512"
     id="Close"
   >

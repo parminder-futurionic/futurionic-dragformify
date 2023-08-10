@@ -55,7 +55,10 @@ const DraggableField: React.FC<DraggableInputProps> = (props) => {
         className="relative group flex flex-col items-center p-2 transition bg-white border border-gray-200  cursor-move shadow-md hover:shadow-lg transform hover:scale-105"
       >
         <div className="z-20 relative bg-white text-black rounded-full p-2 mb-1  group-hover:text-primary">
-          <IconComponent fill={isHovered ? "#8b5cf6" : "#333"}  className="transition-fill duration-300"/>
+          <IconComponent
+            fill={isHovered ? "#8b5cf6" : "#333"}
+            className="transition-fill duration-300"
+          />
         </div>
         <div className="z-10 relative">
           <p

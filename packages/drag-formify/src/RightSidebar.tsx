@@ -1,23 +1,34 @@
 import React from "react";
 import PropertyFields from "./components/PropertyFields";
+import { CloseIcon } from "./assets/SvgIcons/CloseIcon";
 
 interface IRightSidebar {
-  isOpen: boolean;
-  onClose: () => void;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
-const RightSidebar: React.FC<IRightSidebar> = ({ isOpen, onClose }) => {
+const RightSidebar: React.FC<IRightSidebar> = ({}) => {
+  const close = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    document.getElementById("formDragRightSideBar")!.click();
+  };
+
   return (
-    <aside className="transition-all duration-500 ease-in-out w-full md:w-1/5 bg-blue-50 text-blue-500 p-4 md:block hidden">
-      <h1 className="text-xl font-bold mb-4">Settings</h1>
-      <button
-        onClick={onClose}
-        className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded md:hidden block"
-      >
-        Close Drawer
-      </button>
-      <PropertyFields />
-    </aside>
+    <div className="drawer-side z-20 drop-shadow-xl lg:drop-shadow-none">
+      <label htmlFor="formDragRightSideBar" className="drawer-overlay"></label>
+      <ul className="pt-2 bg-base-100 w-3/5 lg:w-full h-full text-base-content">
+        <div className="p-3 border-b border-gray-300 flex flex-row justify-between items-center">
+          <h2 className="text-lg font-semibold">Settings</h2>
+          <button
+            className="btn btn-ghost   btn-circle z-50 lg:hidden"
+            onClick={(e) => close(e)}
+          >
+            <CloseIcon />
+          </button>
+        </div>
+
+        <PropertyFields />
+      </ul>
+    </div>
   );
 };
 

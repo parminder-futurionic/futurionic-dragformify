@@ -18,7 +18,19 @@ const PropertyFields = () => {
       methods.setValue("label", selectedInput.label);
     }
   }, [selectedInput, methods]);
-
+  const labelToCamelCase = (label: string) => {
+    const cleanedLabel = label.replace(/[^a-zA-Z0-9]+/g, ' ').trim();
+    const words = cleanedLabel.split(' ');
+    
+    const camelCased = words.map((word, index) => {
+      if (index === 0) {
+        return word.toLowerCase();
+      }
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    }).join('');
+  
+    return camelCased;
+  };
   const onSubmit = (data: any) => {
     if (selectedInput) {
       const updatedProperties = selectedInput.property.map((item: any) => {
@@ -31,6 +43,7 @@ const PropertyFields = () => {
       setSelectedInput({
         ...selectedInput,
         label: data.label,
+        name: labelToCamelCase(data.label),
         property: updatedProperties,
       });
       console.log(selectedInput);
@@ -39,11 +52,9 @@ const PropertyFields = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
+    <>
       {selectedInput && (
-        <>
-          {" "}
-          <h2 className="text-2xl font-semibold mb-6">Property</h2>
+        <div className="max-w-md mx-auto mt-8 p-6 rounded-lg">
           <form onSubmit={handleSubmit(onSubmit)}>
             {selectedInput?.property.map((val) => (
               <Input
@@ -64,14 +75,14 @@ const PropertyFields = () => {
             ))}
             <button
               type="submit"
-              className="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+              className="w-full px-4 py-2 btn btn-primary mt-4"
             >
               Submit
             </button>
           </form>
-        </>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
