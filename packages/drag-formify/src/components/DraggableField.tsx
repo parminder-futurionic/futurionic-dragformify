@@ -7,6 +7,9 @@ import {
 import { InputIcon } from "../assets/SvgIcons/InputIcon";
 import { PasswordIcon } from "../assets/SvgIcons/PasswordIcon";
 import { EmailIcon } from "../assets/SvgIcons/EmailIcon";
+import { HeadingIcon } from "../assets/SvgIcons/HeadingIcon";
+import { DatePickerIcon } from "../assets/SvgIcons/DatePickerIcon";
+import { RadioInputIcon } from "../assets/SvgIcons/RadioInputIcon";
 
 interface IconProps {
   size?: string;
@@ -22,6 +25,9 @@ const InputComponentIcon: IInputComponentIcon = {
   textInput: InputIcon,
   passwordInput: PasswordIcon,
   emailInput: EmailIcon,
+  heading:HeadingIcon,
+  datePicker: DatePickerIcon,
+  radioInput: RadioInputIcon,
 };
 
 const DraggableField: React.FC<DraggableInputProps> = (props) => {

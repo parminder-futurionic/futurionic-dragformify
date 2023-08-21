@@ -8,7 +8,8 @@ import DraggableInput from "./DraggableInput";
 
 const Dropzone: React.FC = () => {
   // const [inputs, setInputs] = useState<DraggableInputProps[]>([]);
-  const { selectedInput, setSelectedInput , inputs , setInputs } = useDraggableInputContext();
+  const { selectedInput, setSelectedInput, inputs, setInputs } =
+    useDraggableInputContext();
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
   const [dropIndex, setDropIndex] = useState<number | null>(null);
 
@@ -27,9 +28,8 @@ const Dropzone: React.FC = () => {
   ) => {
     console.log("handleDragOver " + index);
     event.preventDefault();
-    if (draggedIndex !== null) {
-      
-      setDropIndex(index)
+    if (draggedIndex !== null && draggedIndex !== index) {
+      setDropIndex(index);
     }
   };
 
@@ -54,26 +54,35 @@ const Dropzone: React.FC = () => {
 
   const handleDropInsideDropZone = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
-    console.log(draggedIndex)
+    console.log(draggedIndex);
     if (draggedIndex !== null) {
       console.log("draggedIndex: " + draggedIndex);
       // Handle the reordering within the Dropzone
       const reorderedInputs = [...inputs];
       const [removed] = reorderedInputs.splice(draggedIndex, 1);
-      console.log("dropIndex"+dropIndex);
+      console.log("dropIndex" + dropIndex);
+      if (dropIndex === null) {
+        // If dropIndex is null, it means the element was dropped outside the list
+        // In this case, we can simply insert the element back at its original position
+        reorderedInputs.splice(draggedIndex, 0, removed);
+      } else {
+        // Reordered according to dropIndex
+        reorderedInputs.splice(dropIndex, 0, removed);
+      }
+
       // Special case: dragged element is dropped at the beginning of the drop zone
-      if (dropIndex === 0) {
-        reorderedInputs.unshift(removed);
-      }
-      // Special case: dragged element is dropped at the end of the drop zone
-      else if (dropIndex === inputs.length) {
-        console.log('Dropping element last' + dropIndex + inputs.length) ;
-        reorderedInputs.push(removed);
-      }
-      // Normal case: dragged element is dropped between elements
-      else {
-        reorderedInputs.splice(dropIndex!, 0, removed);
-      }
+      // if (dropIndex === 0) {
+      //   reorderedInputs.unshift(removed);
+      // }
+      // // Special case: dragged element is dropped at the end of the drop zone
+      // else if (dropIndex === inputs.length) {
+      //   console.log("Dropping element last" + dropIndex + inputs.length);
+      //   reorderedInputs.push(removed);
+      // }
+      // // Normal case: dragged element is dropped between elements
+      // else {
+      //   reorderedInputs.splice(dropIndex!, 0, removed);
+      // }
 
       setInputs(reorderedInputs);
       setDraggedIndex(null);
@@ -98,15 +107,15 @@ const Dropzone: React.FC = () => {
       }
       // Calculate the drop index based on the position where the new element is dropped
       const dropElement = event.currentTarget;
-      const { height , top } = dropElement.getBoundingClientRect();
+      const { height, top } = dropElement.getBoundingClientRect();
       const offsetY = event.clientY - top;
 
       // Calculate the position relative to the drop zone
       const relativePosition = offsetY / height;
-    
+
       // Calculate the index where the element should be inserted
       const newIndex = Math.round(relativePosition * inputs.length);
-    
+
       // Insert the new element at the calculated drop index
       const updatedInputs = [...inputs];
       if (newInput) {
@@ -131,7 +140,7 @@ const Dropzone: React.FC = () => {
 
   return (
     <div
-      className="border p-4"
+      className="border p-4  bg-white rounded-lg shadow-md"
       onDragOver={(e) => e.preventDefault()}
       onDrop={handleDropFromLeftSidebar}
       onDragLeave={handleDragLeave}
@@ -139,21 +148,26 @@ const Dropzone: React.FC = () => {
       onMouseLeave={handleMouseLeave}
       style={{ minHeight: "200px" }}
     >
-      {inputs.map((input, index) => (
-        <DraggableInput
-          key={input.id}
-          input={input}
-          index={index}
-          handleDragStart={handleDragStartInsideDropZone}
-          handleDragOver={handleDragOver}
-          handleDrop={handleDropInsideDropZone}
-          handleRemoveInput={handleRemoveInput}
-          setSelectedInput={setSelectedInput}
-          handleMouseEnter={handleMouseEnter}
-          handleMouseLeave={handleMouseLeave}
-          isHovered={isHovered}
-        />
-      ))}
+      <div className="space-y-4">
+        {inputs.map((input, index) => (
+          <React.Fragment key={input.id}>
+           
+            <DraggableInput
+              key={input.id}
+              input={input}
+              index={index}
+              handleDragStart={handleDragStartInsideDropZone}
+              handleDragOver={handleDragOver}
+              handleDrop={handleDropInsideDropZone}
+              handleRemoveInput={handleRemoveInput}
+              setSelectedInput={setSelectedInput}
+              handleMouseEnter={handleMouseEnter}
+              handleMouseLeave={handleMouseLeave}
+              isHovered={isHovered}
+            />
+          </React.Fragment>
+        ))}
+      </div>
     </div>
   );
 };

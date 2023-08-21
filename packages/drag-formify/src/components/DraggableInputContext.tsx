@@ -1,6 +1,6 @@
-// src/DraggableInputContext.tsx
 import React, { createContext, useContext, useState } from "react";
-import { InputItem } from "./InputProperty";
+import { InputItem } from "../constant/interface";
+import { component } from "../constant/enum";
 
 export interface DraggableInputProps extends InputItem {
   [key: string]: any; // A
@@ -37,15 +37,28 @@ const DraggableInputProvider: React.FC<DraggableInputProviderProps> = ({
   
   const updatedInputArray = React.useMemo(() => {
     return inputs.map((input) => {
-      const updatedProperties: any = input.property.reduce((acc, prop) => {
-        acc[prop.name] = prop.value;
-        return acc;
-      }, {} as Record<string, any>); // Use type assertion here
-
-      return {
-        ...input,
-        ...updatedProperties,
-      };
+      if (input.component === component.HEADING_COMPONENT) {
+        const { property, ...restProps } = input;
+        const headingProperty = property.find((prop) => prop.name === "heading");
+        const subheadingProperty = property.find((prop) => prop.name === "subheading");
+  
+        return {
+          ...restProps,
+          heading: headingProperty ? headingProperty.value : "",
+          subheading: subheadingProperty ? subheadingProperty.value : "",
+          property:[]
+        };
+      } else {
+        const updatedProperties = input.property.reduce((acc, prop) => {
+          acc[prop.name] = prop.value;
+          return acc;
+        }, {} as Record<string, any>);
+  
+        return {
+          ...input,
+          ...updatedProperties,
+        };
+      }
     });
   }, [inputs]);
 

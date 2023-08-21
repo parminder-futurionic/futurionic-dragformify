@@ -1,9 +1,9 @@
 import React from "react";
 
-import { inputItem } from "./components/InputProperty";
 import DraggableField from "./components/DraggableField";
 import Accordion from "./components/Accodion";
 import { CloseIcon } from "./assets/SvgIcons/CloseIcon";
+import { draggableListItem } from "./constant";
 
 interface ILeftSidebar {
   isOpen?: boolean;
@@ -31,25 +31,28 @@ const LeftSidebar: React.FC<ILeftSidebar> = ({}) => {
 
         {/* Sidebar content here */}
 
-        <li className="p-0  lg:mt-0">
-          <Accordion
-            heading={"Input Component"}
-            content={
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
-                {inputItem.map((item: any) => (
-                  <DraggableField
-                    key={item.id}
-                    id={item.id}
-                    label={item.label}
-                    icon={item.icon}
-                    name={item.name}
-                    property={item.property}
-                  />
-                ))}
-              </div>
-            }
-          />
-        </li>
+        {draggableListItem.map((listItem) => (
+          <li className="p-0  lg:mt-0" key={listItem.id}>
+            <Accordion
+              heading={listItem.accordionHeading}
+              content={
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
+                  {listItem.content.map((item: any) => (
+                    <DraggableField
+                      key={item.id}
+                      id={item.id}
+                      label={item.label}
+                      icon={item.icon}
+                      component={listItem.component}
+                      name={item.name}
+                      property={item.property}
+                    />
+                  ))}
+                </div>
+              }
+            />
+          </li>
+        ))}
       </ul>
     </div>
   );

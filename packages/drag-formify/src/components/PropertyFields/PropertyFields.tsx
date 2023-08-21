@@ -6,7 +6,7 @@ import Input from "../Input";
 const PropertyFields = () => {
   const methods = useForm();
   const { selectedInput, setSelectedInput } = useDraggableInputContext();
-  console.log(selectedInput);
+  
   const { control, handleSubmit } = methods;
 
   React.useEffect(() => {
@@ -18,6 +18,7 @@ const PropertyFields = () => {
       methods.setValue("label", selectedInput.label);
     }
   }, [selectedInput, methods]);
+
   const labelToCamelCase = (label: string) => {
     const cleanedLabel = label.replace(/[^a-zA-Z0-9]+/g, ' ').trim();
     const words = cleanedLabel.split(' ');
@@ -46,8 +47,6 @@ const PropertyFields = () => {
         name: labelToCamelCase(data.label),
         property: updatedProperties,
       });
-      console.log(selectedInput);
-      console.log(data);
     }
   };
 
@@ -67,6 +66,7 @@ const PropertyFields = () => {
                 placeholder={val.placeholder}
                 required={val.required}
                 value={val.value}
+                options={val.options}
                 isReadOnly={val.isReadOnly}
                 isDisabled={val.isDisabled}
                 minLength={val.minLength}
