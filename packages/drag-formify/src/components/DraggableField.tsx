@@ -10,6 +10,7 @@ import { EmailIcon } from "../assets/SvgIcons/EmailIcon";
 import { HeadingIcon } from "../assets/SvgIcons/HeadingIcon";
 import { DatePickerIcon } from "../assets/SvgIcons/DatePickerIcon";
 import { RadioInputIcon } from "../assets/SvgIcons/RadioInputIcon";
+import { CheckboxInputIcon } from "../assets/SvgIcons/CheckboxInputIcon";
 
 interface IconProps {
   size?: string;
@@ -28,6 +29,7 @@ const InputComponentIcon: IInputComponentIcon = {
   heading:HeadingIcon,
   datePicker: DatePickerIcon,
   radioInput: RadioInputIcon,
+  checkboxInput:CheckboxInputIcon
 };
 
 const DraggableField: React.FC<DraggableInputProps> = (props) => {

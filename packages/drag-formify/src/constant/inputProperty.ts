@@ -439,6 +439,7 @@ export const inputItem: InputItem[] = [
         name: "options",
         type: "array",
         placeholder: "Options",
+        options:[],
         value: [],
         required: true,
         isReadOnly: false,
@@ -483,7 +484,88 @@ export const inputItem: InputItem[] = [
       },
       // Add more properties as needed
     ],
+  },
+  {
+    id: "input_checkbox",
+    label: "Checkbox input",
+    icon: "checkboxInput",
+    name: "checkboxInput",
+    component: component.INPUT_COMPONENT,
+    property: [
+      {
+        id: "input_label",
+        label: "Label",
+        name: "label",
+        type: "text",
+        placeholder: "Enter the Label",
+        minLength: 1,
+        required: false,
+        value: "",
+        isReadOnly: false,
+        isDisabled: false,
+      },
+      {
+        id: "input_type",
+        label: "Type",
+        name: "type",
+        type: "text",
+        placeholder: "Enter the Label",
+        minLength: 1,
+        value: "checkbox",
+        required: false,
+        isReadOnly: true,
+        isDisabled: true,
+      },
+      {
+        id: "input_required",
+        label: "Required",
+        name: "required",
+        type: "checkbox",
+        placeholder: "Required",
+        required: false,
+        value: false,
+        isReadOnly: false,
+        isDisabled: false,
+      },
+      {
+        id: "input_options",
+        label: "Options",
+        name: "options",
+        type: "array",
+        placeholder: "Options",
+        options: [], // Provide options here
+        value: [],
+        required: true,
+        isReadOnly: false,
+        isDisabled: false,
+      },
+      {
+        id: "input_default_value",
+        label: "Default Value",
+        name: "defaultValue",
+        type: "array", // Use array type for default value
+        placeholder: "Default Value",
+        required: false,
+        options:[],
+        value: [], // Set default value as an empty array
+        isReadOnly: false,
+        isDisabled: false,
+      },
+      {
+        id: "input_inline",
+        label: "Inline Display",
+        name: "inlineDisplay",
+        type: "checkbox",
+        placeholder: "Display options inline",
+        required: false,
+        value: false,
+        isReadOnly: false,
+        isDisabled: false,
+      },
+      // Add more properties as needed
+    ],
   }
+  
   
   
 ];

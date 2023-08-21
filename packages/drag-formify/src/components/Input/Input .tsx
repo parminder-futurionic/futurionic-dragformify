@@ -14,12 +14,12 @@ const Input: React.FC<ControlledInput> = ({
   type = "text",
   placeholder,
   value,
-  options = [], // Added options prop for select type
+  options, // Added options prop for select type
   isReadOnly = false,
   isDisabled = false,
 }) => {
   const [dynamicOptions, setDynamicOptions] = React.useState<string[]>(options);
-
+  
   return (
     <Controller
       name={name}
@@ -67,7 +67,6 @@ const Input: React.FC<ControlledInput> = ({
                           } // Check if option is in field.value array
                           disabled={isDisabled}
                           onChange={() => {
-                            console.log("Field", field.value);
                             if (type === "checkbox") {
                               const updatedValue = field.value.includes(option)
                                 ? field.value.filter(
@@ -115,7 +114,7 @@ const Input: React.FC<ControlledInput> = ({
             )}
             {type === "array" && (
               <div className="flex flex-col">
-                {dynamicOptions.map((option: string, index: number) => (
+                {dynamicOptions?.map((option: string, index: number) => (
                   <input
                     key={index}
                     type="text"
