@@ -6,6 +6,7 @@ import {
 } from "./DraggableInputContext";
 import { DeleteIconSVG } from "../assets/SvgIcons/Delete";
 import { component } from "../constant/enum";
+import CheckboxOrRadioGroup from "./Input/CheckboxOrRadioGroup";
 
 const DraggableInput: React.FC<{
   input: DraggableInputProps;
@@ -44,7 +45,7 @@ const DraggableInput: React.FC<{
     handleRemoveInput(index);
     setSelectedInput(null);
   };
-
+  console.log(input);
   return (
     <div
       key={index}
@@ -91,11 +92,24 @@ const DraggableInput: React.FC<{
       )}
       {input.component !== component.HEADING_COMPONENT && (
         <div className="flex py-2 items-center w-full">
-          <input
+          {input.type === "radio" && (
+            <CheckboxOrRadioGroup
+              type={input.type}
+              label={input.label}
+              required={input.required}
+              options={input.options}
+              isDisabled={true}
+              field={""}
+            />
+          )}
+          {/* <input
             className="bg-white p-1 border rounded w-full"
-            type="text"
+            type={
+              input.property.find((value) => value.name === "type")
+                ?.value as string
+            }
             readOnly
-          />
+          /> */}
           <button
             onClick={(e) => onDeleteInput(e, index)}
             className={`ml-1 p-2  text-white font-bold rounded-lg flex items-center justify-center transition-colors duration-300 ease-in-out  hover:bg-red-200`}

@@ -8,7 +8,7 @@ import DraggableInput from "./DraggableInput";
 
 const Dropzone: React.FC = () => {
   // const [inputs, setInputs] = useState<DraggableInputProps[]>([]);
-  const { selectedInput, setSelectedInput, inputs, setInputs } =
+  const { selectedInput, setSelectedInput,updatedInputArray, inputs, setInputs } =
     useDraggableInputContext();
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
   const [dropIndex, setDropIndex] = useState<number | null>(null);
@@ -149,7 +149,7 @@ const Dropzone: React.FC = () => {
       style={{ minHeight: "200px" }}
     >
       <div className="space-y-4">
-        {inputs.map((input, index) => (
+        {updatedInputArray.map((input, index) => (
           <React.Fragment key={input.id}>
            
             <DraggableInput
